@@ -1,7 +1,5 @@
-'use strict';
-
 const startButton = document.getElementById('startButton');
-const output = document.getElementsByClassName('output');
+const output = document.getElementById('output');
 
 //Creates a new speech recognition instance allowing for a speech  session 
 const recognition = new webkitSpeechRecognition(); 
