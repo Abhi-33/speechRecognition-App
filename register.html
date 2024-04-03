@@ -1,0 +1,134 @@
+<!-- A sign-up page made with the help of chat-gpt -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 400px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    a {
+      color: #4caf50;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="MainForm">
+    <h2>Create an Account</h2>
+
+    <input type="text" id="username" name="username" placeholder="Username" required>
+    
+    <input type="email" id="email" name="email" placeholder="Email" required>
+
+    <input type="password" id="password" name="password" placeholder="Password" required>
+
+    <button type="submit">Sign Up</button>
+
+    <p>Already have an account? <a href="login.html">Login here</a></p>
+  </form>
+
+
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+    //importing functions to save my data on the database
+    import { getDatabase,set,ref } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+    //importing two functions for the authentication
+    import { getAuth , createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCebpbX0ReS1fapyvKXnKaDi7tq42vAL4s",
+      authDomain: "login-page-511f6.firebaseapp.com",
+      databaseURL: "https://login-page-511f6-default-rtdb.firebaseio.com",
+      projectId: "login-page-511f6",
+      storageBucket: "login-page-511f6.appspot.com",
+      messagingSenderId: "113559648585",
+      appId: "1:113559648585:web:867c73ebb8681ecaab8298"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase();
+    const Auth = getAuth(app);
+
+    let username = document.getElementById('username');
+    let email = document.getElementById('email');
+    let password = document.getElementById('password');
+    let MainForm = document.getElementById('MainForm');
+
+    let registerUser = (event) =>{
+      event.preventDefault(); //i have to use submit button so any type of default action will not happen with this .
+    
+    createUserWithEmailAndPassword(Auth , email.value , password.value)
+    .then((credentials)=>{
+      set(ref(db, 'UsersAuthList/' + credentials.user.uid), {
+        username : username.value,
+        password : password.value
+      })
+    })
+    .catch((error)=>{
+      alert(error.message);
+      console.log(error.code);
+      console.log(error.message);
+    })
+    }
+
+    MainForm.addEventListener('submit' , registerUser);
+  </script>
+</body>
+
+</html>

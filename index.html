@@ -12,7 +12,32 @@
     <h1>Basic Speech Recognition </h1>
     <button id="startButton">Start Recognition</button>
     <p id="output"></p>
+
+
+    <button class="btn btn-outline-success" type="button" id="signoutbutton">Sign Out</button>
    
     <script src="script.js"></script>
+
+    <script>
+        let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
+        let UserInfo = JSON.parse(sessionStorage.getItem("user-info "));
+
+
+        let SignoutBtn = document.getElementById('signoutbutton');
+        let Signout = () =>{
+            sessionStorage.removeItem("user-cred");
+            sessionStorage.removeItem("user-info");
+            window.location.href = 'login.html';
+        }
+
+        let CheckCred = ()=>{
+            if(!sessionStorage.getItem("user-cred")){
+                window.location.href = 'login.html';
+        }
+        }
+
+        window.addEventListener('load' , CheckCred);
+        SignoutBtn.addEventListener('click' , Signout);
+    </script>
 </body>
 </html>
