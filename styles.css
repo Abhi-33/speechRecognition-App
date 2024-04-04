@@ -1,0 +1,24 @@
+*{
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+
+}
+.headings{
+    margin : 120px ;
+}
+.container{
+    margin-top: 50px;
+}
+#heading1{
+    padding-bottom: 30px;
+}
+footer{
+    text-align: center;
+}
+body{
+    background-color: rgb(155, 243, 234);
+}
+.cont{
+    display: flex;
+}
