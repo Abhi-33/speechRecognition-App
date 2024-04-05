@@ -32,3 +32,4 @@ recognition.onend = function(){
 startButton.addEventListener('click' , ()=>{
     recognition.start(); //Start speech recogntion
 })
+
